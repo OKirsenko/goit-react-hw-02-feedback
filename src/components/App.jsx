@@ -10,19 +10,25 @@ export default class App extends Component {
     neutral: 0,
     bad: 0,
   };
-  clickGood = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
-  clickNeutral = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-  clickBad = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
+  // clickGood = () => {
+  //   this.setState(prevState => ({
+  //     good: prevState.good + 1,
+  //   }));
+  // };
+  // clickNeutral = () => {
+  //   this.setState(prevState => ({
+  //     neutral: prevState.neutral + 1,
+  //   }));
+  // };
+  // clickBad = () => {
+  //   this.setState(prevState => ({
+  //     bad: prevState.bad + 1,
+  //   }));
+  // };
+  click = e => {
+    const { key } = e.target;
+    this.setState(prev => ({
+      [key]: prev[key] + 1,
     }));
   };
   countTotalFeedback = () => {
@@ -36,15 +42,18 @@ export default class App extends Component {
   };
   render() {
     const { good, bad, neutral } = this.state;
+    const options = Object.keys(this.state);
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
     return (
       <div>
         <Section title={'Please leave feedback'}>
           <FeedbackOptions
-            onGood={this.clickGood}
-            onNeutral={this.clickNeutral}
-            onBad={this.clickBad}
+            // onGood={this.clickGood}
+            // onNeutral={this.clickNeutral}
+            // onBad={this.clickBad}
+            options={options}
+            onFeedback={this.click}
           />
         </Section>
         <Section title={'Statistics'}>
